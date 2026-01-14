@@ -1,0 +1,23 @@
+node_modules
+
+# Next.js
+.next
+out
+build
+
+# Production
+dist
+
+# Misc
+.DS_Store
+*.pem
+
+# Local env files
+.env*.local
+
+# Typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Lock files
+pnpm-lock.yaml
