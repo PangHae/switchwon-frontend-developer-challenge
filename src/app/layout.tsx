@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 	description: 'SwitchOne Frontend Developer Challenge',
 };
 
-export default function RootLayout({
+const RootLayout = ({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
-}>) {
+}>) => {
 	return (
 		<html lang="en">
 			<body
@@ -29,4 +29,6 @@ export default function RootLayout({
 			</body>
 		</html>
 	);
-}
+};
+
+export default RootLayout;
