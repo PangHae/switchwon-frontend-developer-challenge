@@ -45,7 +45,11 @@ const GNB = () => {
 						})}
 					</ul>
 				</nav>
-				<Button type="button" className="text-xl" onClick={handleLogout}>
+				<Button
+					type="button"
+					className="text-xl cursor-pointer"
+					onClick={handleLogout}
+				>
 					Log out
 				</Button>
 			</div>
