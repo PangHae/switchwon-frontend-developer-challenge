@@ -1,4 +1,4 @@
-import { Card, CardHeader } from '@/components/ui/card';
+import { Exchange } from '@/components/views/exchange/Exchange';
 import { ExchangeRateCard } from '@/components/views/exchange/ExchangeRateCard';
 import { MyWallet } from '@/components/views/exchange/MyWallet';
 
@@ -23,9 +23,7 @@ const ExchangeContainer = () => {
 						</div>
 					</div>
 					<div className="flex-1 min-h-0">
-						<Card className="h-full">
-							<CardHeader></CardHeader>
-						</Card>
+						<Exchange />
 					</div>
 				</div>
 			</section>
