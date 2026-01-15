@@ -20,10 +20,5 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
 		}
 	}, [router]);
 
-	const token = getLocalStorage('token');
-	if (!token) {
-		return null;
-	}
-
 	return <>{children}</>;
 };
