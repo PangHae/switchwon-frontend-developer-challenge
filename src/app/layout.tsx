@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
 import './globals.css';
+import QueryClientProvider from '@/components/providers/QueryClientProvider';
 
 const pretendard = localFont({
 	src: './fonts/PretendardVariable.woff2',
@@ -25,7 +26,7 @@ const RootLayout = ({
 			<body
 				className={`${pretendard.className} antialiased flex flex-col w-dvw h-dvh overflow-hidden`}
 			>
-				{children}
+				<QueryClientProvider>{children}</QueryClientProvider>
 			</body>
 		</html>
 	);

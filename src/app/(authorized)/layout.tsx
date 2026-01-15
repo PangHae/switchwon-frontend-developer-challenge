@@ -1,3 +1,4 @@
+import { AuthGuard } from '@/components/auth/AuthGuard.client';
 import GNB from '@/components/layout/GNB';
 
 interface AuthorizedLayoutProps {
@@ -6,10 +7,12 @@ interface AuthorizedLayoutProps {
 
 const AuthorizedLayout = ({ children }: AuthorizedLayoutProps) => {
 	return (
-		<div>
-			<GNB />
-			{children}
-		</div>
+		<AuthGuard>
+			<div>
+				<GNB />
+				{children}
+			</div>
+		</AuthGuard>
 	);
 };
 
