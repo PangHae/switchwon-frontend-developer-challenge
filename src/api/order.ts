@@ -1,6 +1,7 @@
 import { apiClient, getKyHTTPError, isKyHTTPError } from '@/lib/apiClient';
 import { APIResponse } from '@/types/api';
 import {
+	OrderHistoryDTO,
 	OrderQuoteDTO,
 	OrderQuoteRequestDTO,
 	OrderRequestDTO,
@@ -37,6 +38,19 @@ export const makeOrder = async ({
 		});
 
 		return await response.json<APIResponse<string>>();
+	} catch (error) {
+		if (isKyHTTPError(error)) {
+			throw await getKyHTTPError(error);
+		}
+		throw error;
+	}
+};
+
+export const getOrderHistory = async () => {
+	try {
+		const response = await apiClient.get('orders');
+
+		return await response.json<APIResponse<OrderHistoryDTO[]>>();
 	} catch (error) {
 		if (isKyHTTPError(error)) {
 			throw await getKyHTTPError(error);

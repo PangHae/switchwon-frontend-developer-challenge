@@ -17,3 +17,13 @@ export interface OrderRequestDTO {
 	toCurrency: Currency;
 	forexAmount: number;
 }
+
+export interface OrderHistoryDTO {
+	orderId: number;
+	fromCurrency: Currency;
+	fromAmount: number;
+	toCurrency: Currency;
+	toAmount: number;
+	appliedRate: number;
+	orderedAt: string;
+}
