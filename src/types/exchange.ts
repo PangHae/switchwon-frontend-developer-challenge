@@ -1,2 +1,2 @@
-export type Currency = 'USD' | 'JPY';
+export type Currency = 'USD' | 'JPY' | 'KRW';
 export type ExchangeType = 'buy' | 'sell';

@@ -12,5 +12,5 @@ export const login = async (email: string) => {
 		throw new Error(error.message);
 	}
 
-	return (await response.json()) as APIResponse<UserDataDTO>;
+	return await response.json<APIResponse<UserDataDTO>>();
 };
