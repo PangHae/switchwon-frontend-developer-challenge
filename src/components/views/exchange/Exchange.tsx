@@ -18,9 +18,12 @@ import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CURRENCY_INFO } from '@/constants/currency';
+import { useMakeOrder } from '@/hooks/api/useMakeOrder';
 import { useOrderQuote } from '@/hooks/api/useOrderQuote';
 import { useExchangeRateProvider } from '@/hooks/context/useExchangeRateProvider';
-import { ExchangeType, ForeignCurrency } from '@/types/exchange';
+import { useDebounce } from '@/hooks/useDebounce';
+import { Currency, ExchangeType, ForeignCurrency } from '@/types/exchange';
+import { OrderRequestDTO } from '@/types/order';
 
 export const Exchange = () => {
 	const { exchangeRatesMap } = useExchangeRateProvider();
@@ -28,7 +31,11 @@ export const Exchange = () => {
 	const [exchangeType, setExchangeType] = useState<ExchangeType>('buy');
 	const [amount, setAmount] = useState<string>('30');
 
-	const forexAmount = amount ? parseFloat(amount) : 0;
+	const debouncedAmount = useDebounce(amount, 300);
+
+	const { mutate: makeOrder } = useMakeOrder(exchangeRatesMap);
+
+	const forexAmount = debouncedAmount ? parseFloat(debouncedAmount) : 0;
 	const isValidAmount = forexAmount > 0;
 
 	const { data: orderQuote, isLoading: isOrderQuoteLoading } = useOrderQuote(
@@ -63,6 +70,17 @@ export const Exchange = () => {
 		const basePadding = 12;
 		const textLength = currencyUnitText.length;
 		return basePadding + textLength * 16;
+	};
+
+	const handleClickExchange = () => {
+		const orderData: OrderRequestDTO = {
+			exchangeRateId: exchangeRatesMap[currency].exchangeRateId,
+			fromCurrency: (exchangeType === 'buy' ? 'KRW' : currency) as Currency,
+			toCurrency: (exchangeType === 'buy' ? currency : 'KRW') as Currency,
+			forexAmount,
+		};
+
+		makeOrder(orderData);
 	};
 
 	return (
@@ -173,7 +191,10 @@ export const Exchange = () => {
 				</div>
 
 				<div className="mt-auto">
-					<Button className="w-full h-[77px] bg-gray-900 text-white hover:bg-gray-800 cursor-pointer text-xl font-bold">
+					<Button
+						className="w-full h-[77px] bg-gray-900 text-white hover:bg-gray-800 cursor-pointer text-xl font-bold"
+						onClick={handleClickExchange}
+					>
 						환전하기
 					</Button>
 				</div>

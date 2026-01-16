@@ -10,3 +10,10 @@ export interface OrderQuoteRequestDTO {
 	toCurrency: Currency;
 	forexAmount: number;
 }
+
+export interface OrderRequestDTO {
+	exchangeRateId: number;
+	fromCurrency: Currency;
+	toCurrency: Currency;
+	forexAmount: number;
+}
