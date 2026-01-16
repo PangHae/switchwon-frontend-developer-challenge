@@ -22,9 +22,13 @@ const defaultExchangeRateMap = {
 	},
 } as ExchangeRateMap;
 
-export const ExchangeRateContext = createContext<ExchangeRateMap>(
-	defaultExchangeRateMap
-);
+export const ExchangeRateContext = createContext<{
+	exchangeRatesMap: ExchangeRateMap;
+	isLoading: boolean;
+}>({
+	exchangeRatesMap: defaultExchangeRateMap,
+	isLoading: false,
+});
 
 interface ExchangeRateProviderProps {
 	children: ReactNode;
@@ -33,11 +37,14 @@ interface ExchangeRateProviderProps {
 export const ExchangeRateProvider: FC<ExchangeRateProviderProps> = ({
 	children,
 }) => {
-	const { data: exchangeRatesMap } = useExchangeRate();
+	const { data: exchangeRatesMap, isLoading } = useExchangeRate();
 
 	return (
 		<ExchangeRateContext.Provider
-			value={exchangeRatesMap ?? defaultExchangeRateMap}
+			value={{
+				exchangeRatesMap: exchangeRatesMap ?? defaultExchangeRateMap,
+				isLoading,
+			}}
 		>
 			{children}
 		</ExchangeRateContext.Provider>

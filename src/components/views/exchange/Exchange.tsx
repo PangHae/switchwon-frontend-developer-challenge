@@ -15,36 +15,35 @@ import {
 	SelectValue,
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Currency, ExchangeType } from '@/types/exchange';
-
-const CURRENCY_INFO = {
-	USD: {
-		label: 'USD 환전하기',
-		flag: '🇺🇸',
-		fullName: '미국 USD',
-	},
-	JPY: {
-		label: 'JPY 환전하기',
-		flag: '🇯🇵',
-		fullName: '일본 JPY',
-	},
-};
-
-const EXCHANGE_RATE = {
-	USD: 1320.5,
-	JPY: 8.5,
-};
+import { CURRENCY_INFO } from '@/constants/currency';
+import { useOrderQuote } from '@/hooks/api/useOrderQuote';
+import { useExchangeRateProvider } from '@/hooks/context/useExchangeRateProvider';
+import { ExchangeType, ForeignCurrency } from '@/types/exchange';
 
 export const Exchange = () => {
-	const [currency, setCurrency] = useState<Currency>('USD');
+	const { exchangeRatesMap } = useExchangeRateProvider();
+	const [currency, setCurrency] = useState<ForeignCurrency>('USD');
 	const [exchangeType, setExchangeType] = useState<ExchangeType>('buy');
 	const [amount, setAmount] = useState<string>('30');
 
+	const forexAmount = amount ? parseFloat(amount) : 0;
+	const isValidAmount = forexAmount > 0;
+
+	const { data: orderQuote, isLoading: isOrderQuoteLoading } = useOrderQuote(
+		{
+			fromCurrency: exchangeType === 'buy' ? 'KRW' : currency,
+			toCurrency: exchangeType === 'buy' ? currency : 'KRW',
+			forexAmount,
+		},
+		isValidAmount
+	);
+
 	const currencyInfo = CURRENCY_INFO[currency];
-	const exchangeRate = EXCHANGE_RATE[currency];
-	const calculatedAmount = amount
-		? (parseFloat(amount) * exchangeRate).toLocaleString('ko-KR')
+
+	const calculatedAmount = orderQuote?.data?.krwAmount
+		? orderQuote.data.krwAmount.toLocaleString('ko-KR')
 		: '';
 
 	const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -71,13 +70,13 @@ export const Exchange = () => {
 			<CardHeader className="shrink-0">
 				<Select
 					value={currency}
-					onValueChange={(value) => setCurrency(value as Currency)}
+					onValueChange={(value) => setCurrency(value as ForeignCurrency)}
 				>
 					<SelectTrigger className="h-[83px] border-0 text-2xl font-bold shadow-none cursor-pointer">
 						<SelectValue>
 							<div className="flex items-center gap-2">
 								<span>{currencyInfo.flag}</span>
-								<span>{currencyInfo.label}</span>
+								<span>{currency} 환전하기</span>
 							</div>
 						</SelectValue>
 					</SelectTrigger>
@@ -163,9 +162,14 @@ export const Exchange = () => {
 
 				<div className="flex justify-between items-center">
 					<span className="text-xl font-medium text-gray-500">적용 환율</span>
-					<span className="text-xl font-semibold text-gray-700">
-						1 {currency} = {exchangeRate.toLocaleString('ko-KR')} 원
-					</span>
+					{isOrderQuoteLoading ? (
+						<Skeleton className="h-7 w-48 bg-gray-300" />
+					) : (
+						<span className="text-xl font-semibold text-gray-700">
+							1 {currency} ={' '}
+							{exchangeRatesMap[currency].rate.toFixed(2).toLocaleString()} 원
+						</span>
+					)}
 				</div>
 
 				<div className="mt-auto">

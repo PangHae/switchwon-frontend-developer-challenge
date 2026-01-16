@@ -14,22 +14,22 @@ export const MyWallet = () => {
 			<WalletCardWrapper>
 				<ul className="flex flex-col gap-4 flex-1 text-xl font-medium">
 					<li className="flex justify-between items-center">
-						<Skeleton className="h-6 w-12" />
-						<Skeleton className="h-6 w-sm" />
+						<Skeleton className="bg-gray-300 h-6 w-12" />
+						<Skeleton className="bg-gray-300 h-6 w-sm" />
 					</li>
 					<li className="flex justify-between items-center">
-						<Skeleton className="h-6 w-12" />
-						<Skeleton className="h-6 w-sm" />
+						<Skeleton className="bg-gray-300 h-6 w-12" />
+						<Skeleton className="bg-gray-300 h-6 w-sm" />
 					</li>
 					<li className="flex justify-between items-center">
-						<Skeleton className="h-6 w-12" />
-						<Skeleton className="h-6 w-sm" />
+						<Skeleton className="bg-gray-300 h-6 w-12" />
+						<Skeleton className="bg-gray-300 h-6 w-sm" />
 					</li>
 				</ul>
 				<Separator />
 				<div className="flex justify-between items-center text-xl font-medium">
-					<Skeleton className="h-6 w-24" />
-					<Skeleton className="h-7 w-sm" />
+					<Skeleton className="bg-gray-300 h-6 w-24" />
+					<Skeleton className="bg-gray-300 h-7 w-sm" />
 				</div>
 			</WalletCardWrapper>
 		);
@@ -58,7 +58,7 @@ export const MyWallet = () => {
 					>
 						<span className="text-gray-700">{wallet.currency}</span>
 						<span className="text-gray-700 font-semibold">
-							{CURRENCY_INFO[wallet.currency].flag}{' '}
+							{CURRENCY_INFO[wallet.currency].unit}{' '}
 							{wallet.balance.toLocaleString()}
 						</span>
 					</li>
