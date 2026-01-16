@@ -14,7 +14,10 @@ export const useMakeOrder = (exchangeRatesMap: ExchangeRateMap) => {
 	const mutation = useMutation({
 		mutationFn: makeOrder,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['wallet'] });
+			Promise.all([
+				queryClient.invalidateQueries({ queryKey: ['wallet'] }),
+				queryClient.invalidateQueries({ queryKey: ['orders', 'history'] }),
+			]);
 			pendingOrderRef.current = null;
 		},
 		onError: (error: ErrorDTO, variables: OrderRequestDTO) => {
