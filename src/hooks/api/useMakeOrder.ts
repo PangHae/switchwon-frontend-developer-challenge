@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { makeOrder } from '@/api/order';
+import { ErrorDTO } from '@/types/api';
 import { ExchangeRateMap, ForeignCurrency } from '@/types/exchange';
 import { OrderRequestDTO } from '@/types/order';
 
@@ -16,10 +17,8 @@ export const useMakeOrder = (exchangeRatesMap: ExchangeRateMap) => {
 			queryClient.invalidateQueries({ queryKey: ['wallet'] });
 			pendingOrderRef.current = null;
 		},
-		onError: (error: unknown, variables: OrderRequestDTO) => {
-			const err = error as Error & { code?: string };
-
-			if (err.code === 'EXCHANGE_RATE_MISMATCH') {
+		onError: (error: ErrorDTO, variables: OrderRequestDTO) => {
+			if (error.code === 'EXCHANGE_RATE_MISMATCH') {
 				queryClient.invalidateQueries({ queryKey: ['exchange-rates'] });
 				pendingOrderRef.current = variables;
 			}
