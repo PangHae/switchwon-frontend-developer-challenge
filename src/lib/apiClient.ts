@@ -1,6 +1,7 @@
-import ky from 'ky';
+import ky, { HTTPError } from 'ky';
 
 import { getLocalStorage, removeLocalStorage } from './localStorage';
+import { ErrorDTO } from '@/types/api';
 
 /**
  * API 클라이언트
@@ -34,3 +35,11 @@ export const apiClient = ky.create({
 		],
 	},
 });
+
+export const isKyHTTPError = (error: unknown): error is HTTPError<ErrorDTO> => {
+	return error instanceof HTTPError;
+};
+
+export const getKyHTTPError = async (error: HTTPError<ErrorDTO>) => {
+	return await error.response.json<ErrorDTO>();
+};

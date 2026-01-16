@@ -4,8 +4,8 @@ export interface APIResponse<T> {
 	data: T;
 }
 
-export interface ErrorDTO<T> {
+export interface ErrorDTO {
 	code: string;
 	message: string;
-	data: T | null;
+	data: {} | null;
 }
