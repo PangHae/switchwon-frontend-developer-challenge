@@ -67,7 +67,7 @@ export const Exchange = () => {
 	};
 
 	return (
-		<Card className="flex flex-col h-full">
+		<Card className="flex flex-col h-full bg-gray-100">
 			<CardHeader className="shrink-0">
 				<Select
 					value={currency}
@@ -129,7 +129,7 @@ export const Exchange = () => {
 								type="text"
 								value={formattedAmount}
 								onChange={handleAmountChange}
-								className="text-right h-[75px] text-xl!"
+								className="text-right h-[75px] text-xl! bg-white"
 								style={{ paddingRight: `${getPaddingRight()}px` }}
 							/>
 							<span className="absolute right-3 text-xl text-gray-700 pointer-events-none whitespace-nowrap">
@@ -140,7 +140,7 @@ export const Exchange = () => {
 
 					<div className="flex justify-center">
 						<div className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-gray-200">
-							<ChevronDown className="w-4 h-4 text-gray-600" />
+							<ChevronDown className="w-4 h-4 text-white" strokeWidth={4} />
 						</div>
 					</div>
 
@@ -148,7 +148,7 @@ export const Exchange = () => {
 						<label className="text-xl font-medium text-gray-500">
 							필요 원화
 						</label>
-						<div className="w-full h-[75px] text-xl! rounded-md border bg-gray-50 px-3 py-1 flex items-center justify-end text-gray-700 font-semibold cursor-default">
+						<div className="w-full h-[75px] text-xl! rounded-md border bg-gray-200 px-3 py-1 flex items-center justify-end text-gray-700 font-semibold cursor-default border-gray-400">
 							{calculatedAmount}
 							<span
 								className={`${exchangeType === 'buy' ? 'text-red-500' : 'text-blue-500'} font-medium pl-2`}

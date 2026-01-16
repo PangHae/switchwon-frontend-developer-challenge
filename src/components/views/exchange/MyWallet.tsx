@@ -58,7 +58,8 @@ export const MyWallet = () => {
 					>
 						<span className="text-gray-700">{wallet.currency}</span>
 						<span className="text-gray-700 font-semibold">
-							{CURRENCY_INFO[wallet.currency]} {wallet.balance.toLocaleString()}
+							{CURRENCY_INFO[wallet.currency].flag}{' '}
+							{wallet.balance.toLocaleString()}
 						</span>
 					</li>
 				))}
@@ -74,7 +75,7 @@ export const MyWallet = () => {
 
 const WalletCardWrapper = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<Card className="h-full flex flex-col">
+		<Card className="h-full flex flex-col bg-gray-100">
 			<CardHeader>
 				<CardTitle className="text-xl font-bold">내 지갑</CardTitle>
 			</CardHeader>
