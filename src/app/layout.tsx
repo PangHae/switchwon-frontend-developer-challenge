@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
 import './globals.css';
+import { Toaster } from 'sonner';
+
 import QueryClientProvider from '@/components/providers/QueryClientProvider';
 
 const pretendard = localFont({
@@ -27,6 +29,7 @@ const RootLayout = ({
 				className={`${pretendard.className} antialiased flex flex-col w-dvw h-dvh overflow-hidden`}
 			>
 				<QueryClientProvider>{children}</QueryClientProvider>
+				<Toaster position="top-right" richColors />
 			</body>
 		</html>
 	);

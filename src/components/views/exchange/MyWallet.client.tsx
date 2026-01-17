@@ -67,7 +67,9 @@ export const MyWallet = () => {
 			<Separator />
 			<div className="flex justify-between items-center text-xl font-medium">
 				<span className="text-gray-700">총 보유 자산</span>
-				<span className="text-xl font-bold text-blue-600">₩ 3,000,000</span>
+				<span className="text-xl font-bold text-blue-600">
+					₩ {wallet?.data.totalKrwBalance.toLocaleString()}
+				</span>
 			</div>
 		</WalletCardWrapper>
 	);

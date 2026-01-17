@@ -11,5 +11,6 @@ export const getWallet = async () => {
 		if (isKyHTTPError(error)) {
 			throw await getKyHTTPError(error);
 		}
+		throw error;
 	}
 };

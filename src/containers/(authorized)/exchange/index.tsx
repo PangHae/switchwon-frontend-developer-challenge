@@ -1,9 +1,9 @@
 'use client';
 
 import { ExchangeRateProvider } from '@/components/providers/ExchangeRateProvider';
-import { Exchange } from '@/components/views/exchange/Exchange';
-import ExchangeRateCardContainer from '@/components/views/exchange/ExchangeRateCardContainer';
-import { MyWallet } from '@/components/views/exchange/MyWallet';
+import { Exchange } from '@/components/views/exchange/Exchange.client';
+import ExchangeRateCardContainer from '@/components/views/exchange/ExchangeRateCardContainer.client';
+import { MyWallet } from '@/components/views/exchange/MyWallet.client';
 
 const ExchangeContainer = () => {
 	return (

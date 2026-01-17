@@ -1,6 +1,6 @@
 'use client';
 
-import { ExchangeRateCard } from './ExchangeRateCard';
+import { ExchangeRateCard } from './ExchangeRateCard.client';
 import {
 	Card,
 	CardContent,
