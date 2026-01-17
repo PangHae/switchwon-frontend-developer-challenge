@@ -1,4 +1,4 @@
-import ExchangeHistoryTable from '@/components/views/exchange-history/ExchangeHistoryTable.client';
+import ExchangeHistoryTable from '@/components/views/(authorized)/exchange-history/ExchangeHistoryTable.client';
 
 const ExchangeHistoryContainer = () => {
 	return (

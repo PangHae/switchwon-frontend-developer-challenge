@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -12,13 +12,20 @@ interface AuthGuardProps {
 
 export const AuthGuard = ({ children }: AuthGuardProps) => {
 	const router = useRouter();
+	const [isAuthenticated] = useState<boolean | null>(() => {
+		if (typeof window === 'undefined') return null;
+		return getLocalStorage('token') !== null;
+	});
 
 	useEffect(() => {
-		const token = getLocalStorage('token');
-		if (!token) {
+		if (!isAuthenticated) {
 			router.push('/');
 		}
-	}, [router]);
+	}, [router, isAuthenticated]);
+
+	if (isAuthenticated === null || !isAuthenticated) {
+		return null;
+	}
 
 	return <>{children}</>;
 };
