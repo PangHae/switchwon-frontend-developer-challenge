@@ -54,15 +54,38 @@ export const Exchange = () => {
 		: '';
 
 	const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const rawValue = e.target.value.replace(/[^0-9.]/g, '');
-		setAmount(rawValue);
+		const inputValue = e.target.value;
+
+		const rawValue = inputValue.replace(/[^0-9.]/g, '');
+		const parts = rawValue.split('.');
+
+		let formattedValue =
+			parts.length > 2 ? parts[0] + '.' + parts.slice(1).join('') : rawValue;
+
+		if (formattedValue.includes('.')) {
+			const [integerPart, decimalPart] = formattedValue.split('.');
+			if (decimalPart && decimalPart.length > 2) {
+				formattedValue = integerPart + '.' + decimalPart.slice(0, 2);
+			}
+		}
+
+		setAmount(formattedValue);
 	};
 
-	const formattedAmount = amount
-		? parseFloat(amount).toLocaleString('ko-KR', {
-				maximumFractionDigits: 0,
-			})
-		: '';
+	const formattedAmount = (() => {
+		if (!amount) return '';
+		const numValue = parseFloat(amount);
+		if (isNaN(numValue)) return amount;
+
+		if (amount.includes('.')) {
+			const [integerPart, decimalPart] = amount.split('.');
+			const formattedInteger = integerPart
+				? parseInt(integerPart, 10).toLocaleString('ko-KR')
+				: '';
+			return formattedInteger + '.' + decimalPart;
+		}
+		return numValue.toLocaleString('ko-KR');
+	})();
 
 	const currencyUnitText = `${currency === 'USD' ? '달러' : '엔'}${exchangeType === 'buy' ? ' 사기' : ' 팔기'}`;
 
