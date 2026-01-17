@@ -2,6 +2,10 @@
 
 SwitchOne 프론트엔드 개발자 채용 과제로 개발된 환전 애플리케이션입니다. 사용자가 이메일로 로그인하고 실시간 환율을 확인하며 자산을 환전하고 거래 내역을 관리할 수 있는 웹 애플리케이션입니다.
 
+## 배포 URL
+
+**프로덕션 환경**: [https://switchwon-frontend-developer-challe.vercel.app/](https://switchwon-frontend-developer-challe.vercel.app/)
+
 ## 목차
 
 - [기술 스택](#기술-스택)
