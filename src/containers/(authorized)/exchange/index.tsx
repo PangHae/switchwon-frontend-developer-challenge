@@ -8,7 +8,7 @@ import { MyWallet } from '@/components/views/(authorized)/exchange/MyWallet.clie
 const ExchangeContainer = () => {
 	return (
 		<ExchangeRateProvider>
-			<main className="w-full h-full p-10">
+			<main className="w-full h-auto p-10">
 				<section className="flex flex-col gap-8 w-full h-full min-h-0">
 					<div className="w-full shrink-0">
 						<h1 className="text-[40px] font-bold">환율 정보</h1>
