@@ -12,14 +12,13 @@ interface AuthGuardProps {
 
 export const AuthGuard = ({ children }: AuthGuardProps) => {
 	const router = useRouter();
-	const [isAuthenticated] = useState<boolean | null>(() => {
-		if (typeof window === 'undefined') return null;
-		return getLocalStorage('token') !== null;
-	});
+	const [isAuthenticated] = useState<boolean>(
+		() => getLocalStorage('token') !== null
+	);
 
 	useEffect(() => {
 		if (!isAuthenticated) {
-			router.push('/');
+			router.replace('/');
 		}
 	}, [router, isAuthenticated]);
 

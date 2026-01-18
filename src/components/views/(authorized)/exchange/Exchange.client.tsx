@@ -107,7 +107,7 @@ export const Exchange = () => {
 	};
 
 	return (
-		<Card className="flex flex-col h-full bg-gray-100">
+		<Card className="flex flex-col h-full min-h-fit bg-gray-100">
 			<CardHeader className="shrink-0">
 				<Select
 					value={currency}

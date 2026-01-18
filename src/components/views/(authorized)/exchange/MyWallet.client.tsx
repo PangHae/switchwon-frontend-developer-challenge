@@ -77,7 +77,7 @@ export const MyWallet = () => {
 
 const WalletCardWrapper = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<Card className="h-full flex flex-col bg-gray-100">
+		<Card className="h-full min-h-fit flex flex-col bg-gray-100">
 			<CardHeader>
 				<CardTitle className="text-xl font-bold">내 지갑</CardTitle>
 			</CardHeader>
